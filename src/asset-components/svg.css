@@ -1,0 +1,24 @@
+svg {
+    --svg-default-color-light: #fff;
+    --svg-default-color-dark: rgb(58,78,87);
+}
+
+svg.light path.color-fill {
+    fill: var(--svg-color-light, var(--svg-default-color-light));
+    fill-rule: nonzero;
+}
+
+svg.light path.color-stroke {
+    fill: none;
+    stroke: var(--svg-color-light, var(--svg-default-color-light));
+}
+
+svg.dark path.color-fill {
+    fill-rule: nonzero;
+    fill: var(--svg-color-dark, var(--svg-default-color-dark));
+}
+
+svg.dark path.color-stroke {
+    fill: none;
+    stroke: var(--svg-color-dark, var(--svg-default-color-dark));
+}

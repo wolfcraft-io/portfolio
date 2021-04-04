@@ -1,0 +1,73 @@
+* {
+  color: #eee;
+  --background-color: #333;
+  /* color: mediumpurple; */
+  --svg-color-light: currentColor;
+  --header-height: max(8vh, 4rem);
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+#header-frame {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: var(--header-height);
+  border-bottom: 2px solid;
+  background-color: var(--background-color);
+}
+
+#header {
+  height: var(--header-height);
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+  padding: 0 2vw;
+}
+
+#header .wolfcraft-io {
+  display: flex;
+  flex-direction: row;
+  margin-right: auto;
+}
+
+@media (max-width: 40rem) {
+  #header a.wolfcraft-io .name {
+    display: none;
+  }
+}
+
+#header .wolfcraft-io .logo {
+  margin: auto 0;
+  height: calc(var(--header-height) * 0.8);
+}
+
+#header .wolfcraft-io .name {
+  margin: auto 1rem;
+  height: 2vh;
+  min-height: 2rem;
+}
+
+#header .social-media-link {
+  width: 2vmin;
+  min-width: 2rem;
+  margin: auto 1vw;
+}
+
+#content {
+  margin-top: calc(var(--header-height) + 10px);
+}
+
+#vh-test {
+  width: 50vw;
+  margin-left: 8vw;
+}
+
+#rem-test {
+  width: 20rem;
+  margin-left: 8vw;
+}
