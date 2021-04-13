@@ -71,3 +71,7 @@ body {
   width: 20rem;
   margin-left: 8vw;
 }
+
+.debug.frame {
+  margin: auto;
+}

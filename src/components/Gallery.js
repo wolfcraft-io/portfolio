@@ -4,7 +4,9 @@ class Gallery extends Component {
     render() {
         return (
             <div className="gallery">
-               todo: fill gallery!
+               <div class="debug frame">
+                   {window.visualViewport.width}px X {window.visualViewport.height}px
+                </div>
             </div>
         );
     }
