@@ -3,16 +3,16 @@ import Photo from './Photo';
 import './Gallery.css';
 
 const dummyImages = [
-    '../debug/square.png',
-    '../debug/landscape.png',
-    '../debug/portrait.png',
-    '../debug/portrait.png',
-    '../debug/square.png',
-    '../debug/landscape.png',
-    '../debug/portrait.png',
-    '../debug/2-1.png',
-    '../debug/landscape.png',
-    '../debug/portrait.png'
+    './debug/square.png',
+    './debug/landscape.png',
+    './debug/portrait.png',
+    './debug/portrait.png',
+    './debug/square.png',
+    './debug/landscape.png',
+    './debug/portrait.png',
+    './debug/2-1.png',
+    './debug/landscape.png',
+    './debug/portrait.png'
 ];
 
 class Gallery extends Component {
