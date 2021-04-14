@@ -3,9 +3,13 @@
     width: 100%;
 }
 
+.photo.pre-load {
+    opacity: 0;
+}
+
 .photo.fade-in {
     animation-name: fade-in; 
-    animation-duration: 2s;
+    animation-duration: 5s;
     animation-timing-function: ease;
 }
 

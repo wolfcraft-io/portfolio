@@ -6,6 +6,7 @@
 
 .gallery .column {
     flex: 1;
+    flex-direction: column;
 }
 
 .gallery .column .photo {

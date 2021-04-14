@@ -19,54 +19,66 @@ class Gallery extends Component {
     constructor() {
         super();
         this.state = {
-            numberOfColums: this.calculateNumberOfColums(),
+            columns: this.createColumnIds(),
             photos : [],
          };
     }
 
-    calculateNumberOfColums() {
-        return Math.max(Math.ceil(window.innerWidth / 900, 1));
+    createColumnIds() {
+        const numberOfColums = Math.max(Math.ceil(window.innerWidth / 900, 1));
+        return Array.from({length: numberOfColums}).map((_,i)=> i);
     }
 
     getRandomImage() {
         return dummyImages[Math.floor(Math.random() * 10)];
     }
 
-    addImage() {
+    addPhotoToColumn(columnIndex = 0) {
         const photo = {
             previewImageUrl: this.getRandomImage(),
-            description: 'logo-image'
+            description: 'logo-image',
+            id : this.nextIdForColumn(columnIndex)
         };
         this.setState({ photos: [...this.state.photos, photo ]});
     }
 
-    componentDidMount() {
-        window.addEventListener('resize', () => this.setState({ numberOfColums: this.calculateNumberOfColums() }));
+    nextIdForColumn(columnIndex) {
+        const ids = this.getPhotosForColum(columnIndex).map(photo => photo.id);
+        console.log({ columnIndex, ids, next: Math.max(ids) + this.state.columns.length });
+        if ( ids.length === 0)
+            return columnIndex;
+        return Math.max(...ids) + this.state.columns.length;
+    }
 
-        //todo add dummy image
-        this.addImage();
+    getPhotosForColum(columnIndex = 0) {
+        const { columns, photos } = this.state;
+        return photos?.filter(photo => (photo.id + 1) % columns.length === (columnIndex + 1) % columns.length) || [];
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', () => this.setState({ columns: this.createColumnIds() }));
+        setTimeout(() => this.state.columns.forEach(i => this.addPhotoToColumn(i)), 20);
     }
 
     render() {
         return (
-            <div className="gallery" onClick={() => this.addImage()}>
-                {
-                    Array
-                    .from({length: this.state.numberOfColums})
-                    .map((_, i) => this.renderColumn(i))
-                }
+            <div className="gallery">
+                { this.state.columns.map(i => this.renderColumn(i)) }
             </div>
         );
     }
 
-        renderColumn(index) {
-        const { numberOfColums = 1, photos } = this.state;
+    renderColumn(columnIndex) {
         return (
-            <div className="column" key={index}>
+            <div className="column" key={columnIndex}>
                 {
-                    photos
-                        ?.filter((_, i) => (i + 1) % numberOfColums === (index + 1) % numberOfColums)
-                        .map(({ previewImageUrl, description }, i) => <Photo key={i} id={i} previewImageUrl={previewImageUrl} description={description} />)
+                    this.getPhotosForColum(columnIndex)
+                        .map(({ previewImageUrl, description, id }) => (
+                            <Photo key={id}
+                                id={id}
+                                previewImageUrl={previewImageUrl}
+                                description={description}
+                                loadNextPhoto={() => this.addPhotoToColumn(columnIndex)} />))
                 }
             </div>
         );
