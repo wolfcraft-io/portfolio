@@ -1,7 +1,7 @@
 * {
   color: #eee;
+  /* color: rgb(52, 153, 153); */
   --background-color: #333;
-  /* color: mediumpurple; */
   --svg-color-light: currentColor;
   --header-height: max(8vh, 4rem);
 }
