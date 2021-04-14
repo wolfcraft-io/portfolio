@@ -1,0 +1,19 @@
+.photo img {
+    pointer-events: none;
+    width: 100%;
+}
+
+.photo.fade-in {
+    animation-name: fade-in; 
+    animation-duration: 2s;
+    animation-timing-function: ease;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

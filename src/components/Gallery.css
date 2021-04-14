@@ -5,7 +5,6 @@
 }
 
 .gallery .column {
-    display: flexbox;
     flex: 1;
 }
 

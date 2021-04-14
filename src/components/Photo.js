@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Photo.css';
 
 class Photo extends Component {
     render() {
@@ -16,14 +17,13 @@ class Photo extends Component {
             console.error(`Missing discription for '${previewImageUrl}'.`)
 
         return (
-            <div className="photo">
+            <div className="photo fade-in">
                 <img
                     id={`photo_${id}`}
                     src={previewImageUrl}
-                    alt={description} 
-                    style={{ width:'100%' }} />
+                    alt={description} />
             </div>
-            );
+        );
     }
 }
 
