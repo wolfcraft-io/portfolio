@@ -61,17 +61,3 @@ body {
 #content {
   margin-top: calc(var(--header-height) + 10px);
 }
-
-#vh-test {
-  width: 50vw;
-  margin-left: 8vw;
-}
-
-#rem-test {
-  width: 20rem;
-  margin-left: 8vw;
-}
-
-.debug.frame {
-  margin: auto;
-}

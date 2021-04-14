@@ -1,0 +1,14 @@
+.gallery {
+    display: flex;
+    flex-direction: row;
+    padding: 1vw;
+}
+
+.gallery .column {
+    display: flexbox;
+    flex: 1;
+}
+
+.gallery .column .photo {
+    padding: 1vw;
+}
