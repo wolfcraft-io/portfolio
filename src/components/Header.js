@@ -15,14 +15,32 @@ class Header extends Component {
                         <Logo />
                         <Name /> 
                     </a>
-                    <SocialMediaLink href="https://twitter.com/wolfcraft_io">
-                        <TwitterLogo />
-                    </SocialMediaLink>
-                    <SocialMediaLink href="https://instagram.com/wolfcraft.io">
-                        <InstagramLogo />
-                    </SocialMediaLink>
+                    {this.renderTwitterLink()}
+                    {this.renderInstagramLink()}
                 </div>
             </div>
+        );
+    }
+
+    renderTwitterLink() {
+        if (!process.env.REACT_APP_TWITTER)
+            return;
+
+        return (
+            <SocialMediaLink href={`https://twitter.com/${process.env.REACT_APP_TWITTER}`}>
+                <TwitterLogo />
+            </SocialMediaLink>
+        );
+    }
+
+    renderInstagramLink() {
+        if (!process.env.REACT_APP_INSTAGRAM)
+            return;
+
+        return (
+            <SocialMediaLink href={`https://www.instagram.com/${process.env.REACT_APP_INSTAGRAM}`}>
+                <InstagramLogo />
+            </SocialMediaLink>
         );
     }
 }
