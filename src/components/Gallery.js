@@ -2,26 +2,16 @@ import React, { Component } from 'react';
 import Photo from './Photo';
 import './Gallery.css';
 
-const dummyImages = [
-    './debug/square.png',
-    './debug/landscape.png',
-    './debug/portrait.png',
-    './debug/portrait.png',
-    './debug/square.png',
-    './debug/landscape.png',
-    './debug/portrait.png',
-    './debug/2-1.png',
-    './debug/landscape.png',
-    './debug/portrait.png'
-];
-
 class Gallery extends Component {
-    constructor() {
+    constructor(props) {
         super();
         this.state = {
             columns: this.createColumnIds(),
-            photos : [],
+            photos : []
          };
+
+         if (!props.contentProvider)
+            console.error('No content provider found. Gallery will be empty')
     }
 
     createColumnIds() {
@@ -29,25 +19,17 @@ class Gallery extends Component {
         return Array.from({length: numberOfColums}).map((_,i)=> i);
     }
 
-    getRandomImage() {
-        return dummyImages[Math.floor(Math.random() * 10)];
-    }
-
     addPhotoToColumn(columnIndex = 0) {
-        const photo = {
-            previewImageUrl: this.getRandomImage(),
-            description: 'logo-image',
-            id : this.nextIdForColumn(columnIndex)
-        };
-        this.setState({ photos: [...this.state.photos, photo ]});
-    }
+        const photo = this.props.contentProvider?.getPhoto();
+        if (!photo)
+            return;
 
-    nextIdForColumn(columnIndex) {
-        const ids = this.getPhotosForColum(columnIndex).map(photo => photo.id);
-        console.log({ columnIndex, ids, next: Math.max(ids) + this.state.columns.length });
-        if ( ids.length === 0)
-            return columnIndex;
-        return Math.max(...ids) + this.state.columns.length;
+        const existingIds = this.getPhotosForColum(columnIndex).map(photo => photo.id);
+        const id = ( existingIds.length === 0)
+            ? columnIndex
+            : Math.max(...existingIds) + this.state.columns.length;;
+
+        this.setState({ photos: [...this.state.photos, { ...photo, id } ]});
     }
 
     getPhotosForColum(columnIndex = 0) {
