@@ -13,6 +13,14 @@ const dummyImages = [
 ];
 
 class GalleryContentProvider {
+    constructor({ listContent = () => [] } = {}) {
+        this.listContent = listContent;
+    }
+    
+    test() {
+        console.log('trigger test');
+        console.log("test listContent", this.listContent());
+    }
 
     getPhoto() {
         return this.getPlaceholderPhoto();

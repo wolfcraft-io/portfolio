@@ -5,6 +5,11 @@ import TwitterLogo from '../asset-components/TwitterLogo';
 import InstagramLogo from '../asset-components/InstagramLogo';
 import SocialMediaLink from './SocialMediaLink';
 
+const socialMedia = {
+    twitter: process.env.REACT_APP_SM_TWITTER,
+    instagram: process.env.REACT_APP_SM_INSTAGRAM
+};
+
 
 class Header extends Component {
     render() {
@@ -23,22 +28,22 @@ class Header extends Component {
     }
 
     renderTwitterLink() {
-        if (!process.env.REACT_APP_TWITTER)
+        if (!socialMedia.twitter)
             return;
 
         return (
-            <SocialMediaLink href={`https://twitter.com/${process.env.REACT_APP_TWITTER}`}>
+            <SocialMediaLink href={`https://twitter.com/${socialMedia.twitter}`}>
                 <TwitterLogo />
             </SocialMediaLink>
         );
     }
 
     renderInstagramLink() {
-        if (!process.env.REACT_APP_INSTAGRAM)
+        if (!socialMedia.instagram)
             return;
 
         return (
-            <SocialMediaLink href={`https://www.instagram.com/${process.env.REACT_APP_INSTAGRAM}`}>
+            <SocialMediaLink href={`https://www.instagram.com/${socialMedia.instagram}`}>
                 <InstagramLogo />
             </SocialMediaLink>
         );
