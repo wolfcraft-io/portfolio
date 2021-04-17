@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './Photo.css';
 
+const email = process.env.REACT_APP_CONTACT_EMAIL;
+
 class Photo extends Component {
     constructor() {
         super();
         this.state = { show: false }
+        this.descriptionMissing = email ? `Image description missing. You can notify us about this issue at ${email}` : 'Image description missing.';
     }
 
     componentDidMount() {
@@ -30,24 +33,24 @@ class Photo extends Component {
     render() {
         const {
             id = 'no-id',
-            previewImageUrl = null,
-            //fullImageUrl = null,
-            description = 'No description provied.'
+            image,
+            name,
+            description
         } = this.props;
 
-        if (!previewImageUrl)
-            return;
+        if (!image)
+            return null;
 
         if (!description)
-            console.error(`Missing discription for '${previewImageUrl}'.`)
+            console.error(`Missing discription for '${name || image}'.`)
 
         return (
             <div className={`photo ${this.state.show ? 'fade-in' : 'pre-load'}`}
                 ref={e => this.domElement = e}>
                 <img
                     id={`photo_${id}`}
-                    src={previewImageUrl}
-                    alt={description} />
+                    src={image}
+                    alt={description || this.descriptionMissing } />
             </div>
         );
     }

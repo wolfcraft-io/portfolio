@@ -20,16 +20,20 @@ class Gallery extends Component {
     }
 
     addPhotoToColumn(columnIndex = 0) {
-        const photo = this.props.contentProvider?.getPhoto();
-        if (!photo)
-            return;
+        this.props
+            .contentProvider
+            ?.getNextPhoto()
+            .then(photo => {
+                if (!photo)
+                return;
 
-        const existingIds = this.getPhotosForColum(columnIndex).map(photo => photo.id);
-        const id = ( existingIds.length === 0)
-            ? columnIndex
-            : Math.max(...existingIds) + this.state.columns.length;;
+                const existingIds = this.getPhotosForColum(columnIndex).map(photo => photo.id);
+                const id = ( existingIds.length === 0)
+                    ? columnIndex
+                    : Math.max(...existingIds) + this.state.columns.length;;
 
-        this.setState({ photos: [...this.state.photos, { ...photo, id } ]});
+                this.setState({ photos: [...this.state.photos, { ...photo, id } ]});
+            });
     }
 
     getPhotosForColum(columnIndex = 0) {
@@ -55,10 +59,11 @@ class Gallery extends Component {
             <div className="column" key={columnIndex}>
                 {
                     this.getPhotosForColum(columnIndex)
-                        .map(({ previewImageUrl, description, id }) => (
+                        .map(({ id, name, image, description }) => (
                             <Photo key={id}
                                 id={id}
-                                previewImageUrl={previewImageUrl}
+                                name={name}
+                                image={image}
                                 description={description}
                                 loadNextPhoto={() => this.addPhotoToColumn(columnIndex)} />))
                 }
