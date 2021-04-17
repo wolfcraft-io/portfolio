@@ -61,4 +61,5 @@ body {
 
 #content {
   margin-top: calc(var(--header-height) + 10px);
+  margin-bottom: 2vh;
 }
