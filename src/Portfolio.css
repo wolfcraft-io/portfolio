@@ -1,7 +1,6 @@
 * {
-  color: #eee;
-  /* color: rgb(52, 153, 153); */
-  --background-color: #333;
+  color: #B0C4DE;
+  --background-color: #333333;
   --svg-color-light: currentColor;
   --header-height: max(8vh, 4rem);
 }
