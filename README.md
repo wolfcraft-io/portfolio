@@ -9,6 +9,7 @@ Runs the app in the development mode. [http://dev-portfolio.wolfcraft.io:3000](h
 Local configuration: 
 - Configure localhost to dev-portfolio.wolfcraft.io to run development version
 - Add environment variables to .env in root folder
+    - HOST=dev-portfolio.wolfcraft.io
     - REACT_APP_CONTACT_EMAIL contact email for website
     - REACT_APP_SM_TWITTER twitter account (optional)
     - REACT_APP_SM_INSTAGRAM instagram account (optional)
