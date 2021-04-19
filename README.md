@@ -4,8 +4,18 @@
 
 ### `npm start`
 
-Runs the app in the development mode.\
-[http://localhost:3000](http://localhost:3000)
+Runs the app in the development mode. [http://dev-portfolio.wolfcraft.io:3000](http://dev-portfolio.wolfcraft.io:3000/)
+
+Local configuration: 
+- Configure localhost to dev-portfolio.wolfcraft.io to run development version
+- Add environment variables to .env in root folder
+    - REACT_APP_CONTACT_EMAIL contact email for website
+    - REACT_APP_SM_TWITTER twitter account (optional)
+    - REACT_APP_SM_INSTAGRAM instagram account (optional)
+    - REACT_APP_S3_BUCKET S3 bucket name for photos
+    - REACT_APP_S3_REGION S3 bucket region
+    - REACT_APP_S3_ID S3 acces user ID
+    - REACT_APP_S3_SECRET S3 access user sercret
 
 
 ### `npm test`
@@ -15,36 +25,12 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Build gets automatically executed for AWS Amplify app when pushed to `main`. Local builds are normally not required.\
+
+> Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.\
 [More info on deployment.](https://facebook.github.io/create-react-app/docs/deployment)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
+## Advanced Configuration
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
