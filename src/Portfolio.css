@@ -55,7 +55,7 @@ body {
 #header .social-media-link {
   width: 2vmin;
   min-width: 2rem;
-  margin: auto max(1vw, 1rem);
+  margin: auto max(1vw, 0.75rem);
 }
 
 #content {
