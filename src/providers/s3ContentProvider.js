@@ -11,8 +11,7 @@ const credentials = new Credentials(
     process.env.REACT_APP_S3_SECRET
 );
 
-const keyExtension = /\.jpe?g$/gi; // key-extension for dummy data
-// const keyExtension = /\.gallery\.jpe?g$/gi;
+const keyExtension = /\.W_900\.jpe?g$/gi;
 
 class S3ContentProvider {
 
