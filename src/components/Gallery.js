@@ -6,33 +6,53 @@ class Gallery extends Component {
     constructor(props) {
         super();
         this.state = {
-            columns: this.createColumnIds(),
-            photos : []
+            columns: this.createColumnIds(props),
+            photos : [],
+            galleryState: 'emtpy'
          };
 
          if (!props.contentProvider)
             console.error('No content provider found. Gallery will be empty')
     }
 
-    createColumnIds() {
+    createColumnIds(props) {
         const numberOfColums = Math.max(Math.ceil(window.innerWidth / 900, 1));
-        return Array.from({length: numberOfColums}).map((_,i)=> i);
+        const { limit = numberOfColums } = props;
+        return Array.from({length: Math.min(numberOfColums, limit) }).map((_,i)=> i);
+    }
+
+    contentLoaded() {
+        this.setState({ galleryState: 'loaded' });
+        this.props?.onContentLoaded();
     }
 
     addPhotoToColumn(columnIndex = 0) {
-        this.props
-            .contentProvider
-            ?.getNextPhoto()
+        if (this.state.galleryState === 'loaded')
+            return;
+
+        const {
+            limit,
+            contentProvider,
+         } = this.props;
+
+        if (!contentProvider || (limit &&  this.state.photos.length >= limit))
+            return this.contentLoaded();
+
+        contentProvider
+            .getNextPhoto()
             .then(photo => {
                 if (!photo)
-                return;
+                    return this.contentLoaded();
 
                 const existingIds = this.getPhotosForColum(columnIndex).map(photo => photo.id);
                 const id = ( existingIds.length === 0)
                     ? columnIndex
-                    : Math.max(...existingIds) + this.state.columns.length;;
+                    : Math.max(...existingIds) + this.state.columns.length;
 
-                this.setState({ photos: [...this.state.photos, { ...photo, id } ]});
+                this.setState({
+                    photos: [...this.state.photos, { ...photo, id } ],
+                    galleryState: 'loading'
+                });
             });
     }
 
@@ -48,7 +68,7 @@ class Gallery extends Component {
 
     render() {
         return (
-            <div className="gallery">
+            <div className={ `gallery ${this.state.galleryState}`}>
                 { this.state.columns.map(i => this.renderColumn(i)) }
             </div>
         );

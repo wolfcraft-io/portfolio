@@ -60,5 +60,32 @@ body {
 
 #content {
   margin-top: calc(var(--header-height) + 10px);
-  margin-bottom: 2vh;
+  min-height: calc(80vh - var(--header-height));
+}
+
+#footer {
+  flex: 1;
+  display: flex;
+  animation-name: footer-fade-in;
+  animation-timing-function: linear;
+  animation-duration: 10s;
+  margin-top: 5vh;
+}
+
+#footer a.application-source,
+#footer > .application {
+  margin: 4vh auto;
+}
+
+#footer .application {
+  height: 3em;
+}
+
+@keyframes footer-fade-in {
+  from {
+      opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
