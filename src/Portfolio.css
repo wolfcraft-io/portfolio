@@ -60,6 +60,7 @@ body {
 
 #content {
   margin-top: calc(var(--header-height) + 10px);
+  margin-bottom: 5vh;
   min-height: calc(80vh - var(--header-height));
 }
 
@@ -69,7 +70,6 @@ body {
   animation-name: footer-fade-in;
   animation-timing-function: linear;
   animation-duration: 10s;
-  margin-top: 5vh;
 }
 
 #footer a.application-source,
