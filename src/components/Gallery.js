@@ -4,9 +4,9 @@ import './Gallery.css';
 
 class Gallery extends Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
-            columns: this.createColumnIds(props),
+            columns: this.createColumnIds(),
             photos : [],
             galleryState: 'emtpy'
          };
@@ -15,9 +15,9 @@ class Gallery extends Component {
             console.error('No content provider found. Gallery will be empty')
     }
 
-    createColumnIds(props) {
+    createColumnIds() {
         const numberOfColums = Math.max(Math.ceil(window.innerWidth / 900, 1));
-        const { limit = numberOfColums } = props;
+        const { limit = numberOfColums } = this.props;
         return Array.from({length: Math.min(numberOfColums, limit) }).map((_,i)=> i);
     }
 
