@@ -85,7 +85,7 @@ class Gallery extends Component {
                                 name={name}
                                 image={image}
                                 description={description}
-                                loadNextPhoto={() => setTimeout(() => this.addPhotoToColumn(columnIndex), 1000)} />))
+                                loadNextPhoto={() => setTimeout(() => this.addPhotoToColumn(columnIndex), 10)} />))
                 }
             </div>
         );
