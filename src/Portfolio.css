@@ -1,8 +1,12 @@
-* {
-  color: #B0C4DE;
+:root {
+  --color: #B0C4DE;
   --background-color: #333333;
-  --svg-color-light: currentColor;
+  --svg-color-light: var(--color);
   --header-height: max(8vh, 4rem);
+}
+
+* {
+  color: var(--color);
 }
 
 body {
