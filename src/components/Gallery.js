@@ -8,7 +8,8 @@ class Gallery extends Component {
         this.state = {
             columns: this.createColumnIds(),
             photos : [],
-            galleryState: 'emtpy'
+            galleryState: 'emtpy',
+            showDescription: !!(new URLSearchParams(window.location.search).get('description')),
          };
 
          if (!props.contentProvider)
@@ -85,7 +86,8 @@ class Gallery extends Component {
                                 name={name}
                                 image={image}
                                 description={description}
-                                loadNextPhoto={() => setTimeout(() => this.addPhotoToColumn(columnIndex), 10)} />))
+                                loadNextPhoto={() => setTimeout(() => this.addPhotoToColumn(columnIndex), 10)}
+                                showDescription={this.state.showDescription} />))
                 }
             </div>
         );

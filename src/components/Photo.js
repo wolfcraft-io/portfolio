@@ -35,14 +35,15 @@ class Photo extends Component {
             id = 'no-id',
             image,
             name,
-            description
+            description,
+            showDescription,
         } = this.props;
 
         if (!image)
             return null;
 
         if (!description)
-            console.error(`Missing discription for '${name || image}'.`)
+            console.error(`Missing description for '${name || image}'.`)
 
         return (
             <div className={`photo ${this.state.show ? 'fade-in' : 'pre-load'}`}
@@ -51,6 +52,7 @@ class Photo extends Component {
                     id={`photo_${id}`}
                     src={image}
                     alt={description || this.descriptionMissing } />
+                {description && showDescription ? <div className="description">{description}</div> : null}
             </div>
         );
     }
