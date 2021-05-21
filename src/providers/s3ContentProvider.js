@@ -1,6 +1,7 @@
 import { Credentials } from 'aws-sdk';
 import S3 from 'aws-sdk/clients/s3';
 import random from 'random';
+import s3Base64PhotoProvider from './s3Base64PhotoProvider';
 
 const POPULATING_LIST = 'POPULATING_LIST';
 
@@ -65,14 +66,16 @@ class S3ContentProvider {
 
         try {
             const client = await this.getClient();
-            const responsePromise = client
-                .getObject({ Bucket: bucket, Key: key })
-                .promise();
-            const { Body, ContentType } = await responsePromise;
-    
+            const base64PhotoProvider = new s3Base64PhotoProvider(client);
+            const base64Image = await base64PhotoProvider.downloadPhoto(bucket, key);
+            if (!base64Image)
+                return await this.getNextPhoto();
+
             const photo = { 
-                image: `data:${ContentType};base64, ${Body.toString('base64')}`,
                 name: key,
+                image: base64Image,
+                loadFullsize: async () => await base64PhotoProvider.downloadPhoto(bucket, key.replace(keyExtension, '.H_1296.jpg')),
+                loadFullsize4K: async () => await base64PhotoProvider.downloadPhoto(bucket, key.replace(keyExtension, '.H_1800.jpg'))
             };
     
             try

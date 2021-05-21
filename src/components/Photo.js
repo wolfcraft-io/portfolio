@@ -15,18 +15,13 @@ class Photo extends Component {
        setTimeout(() => this.onViewportUpdated(), 20);
     }
 
-    triggerLoadNextPhoto() {
-        const {loadNextPhoto = () => {}} = this.props;
-        loadNextPhoto();
-    }
-
     onViewportUpdated() {
         if(!this.domElement || this.state.show)
             return;
 
         if (this.domElement.getBoundingClientRect().top <= window.innerHeight) {
             this.setState({ show: true });
-            this.triggerLoadNextPhoto();
+            this.props.loadNextPhoto?.();
         }
     }
 
@@ -47,7 +42,8 @@ class Photo extends Component {
 
         return (
             <div className={`photo ${this.state.show ? 'fade-in' : 'pre-load'}`}
-                ref={e => this.domElement = e}>
+                ref={e => this.domElement = e}
+                onClick={() => this.props.onClick?.()}>
                 <img
                     id={`photo_${id}`}
                     src={image}

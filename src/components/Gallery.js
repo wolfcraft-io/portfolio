@@ -8,6 +8,7 @@ class Gallery extends Component {
         this.state = {
             columns: this.createColumnIds(),
             photos : [],
+            selectedPhoto: null,
             galleryState: 'emtpy',
             showDescription: !!(new URLSearchParams(window.location.search).get('description')),
          };
@@ -62,6 +63,44 @@ class Gallery extends Component {
         return photos?.filter(photo => (photo.id + 1) % columns.length === (columnIndex + 1) % columns.length) || [];
     }
 
+    selectPhoto(id) {
+        const selectedPhoto = this.state.photos.find(p => p.id === id);
+        if (!selectedPhoto)
+            this.setState({ selectedPhoto: null });
+        else {
+            this.loadFullsizePhoto(selectedPhoto, window.visualViewport.height);
+        }
+    }
+
+    loadFullsizePhoto(photo, screenHeight) {
+        if(screenHeight * 0.8 > 1296) {
+            photo
+                .loadFullsize4K()
+                .then(base64img => {
+                    if (base64img)
+                        this.setFullsizePhoto(photo, base64img)
+                    else
+                        this.loadFullsizePhoto(photo, 1296);
+                });
+        }
+        else {
+            photo
+                .loadFullsize()
+                .then(base64img => this.setFullsizePhoto(photo, base64img || photo.image));
+        }
+    }
+
+    setFullsizePhoto(photo, base64Image) {
+        if (photo)
+            this.setState({
+                selectedPhoto: {
+                        ...photo,
+                        id: `${photo.id}_selected`,
+                        image: base64Image || photo.image
+                    }
+                });
+    }
+
     componentDidMount() {
         window.addEventListener('resize', () => this.setState({ columns: this.createColumnIds() }));
         setTimeout(() => this.state.columns.forEach(i => this.addPhotoToColumn(i)), 20);
@@ -71,6 +110,7 @@ class Gallery extends Component {
         return (
             <div className={ `gallery ${this.state.galleryState}`}>
                 { this.state.columns.map(i => this.renderColumn(i)) }
+                { this.renderFullscreen() }
             </div>
         );
     }
@@ -87,11 +127,32 @@ class Gallery extends Component {
                                 image={image}
                                 description={description}
                                 loadNextPhoto={() => setTimeout(() => this.addPhotoToColumn(columnIndex), 10)}
+                                onClick={() => this.selectPhoto(id)}
                                 showDescription={this.state.showDescription} />))
                 }
             </div>
         );
+    }
 
+    renderFullscreen() {
+        if (this.state.columns.length <= 1 || !this.state.selectedPhoto)
+            return;
+
+        const { id, name, image, description } = this.state.selectedPhoto;
+        return (
+            <div className="full-screen">
+                <div
+                    className="background-filter"
+                    onClick={() => this.selectPhoto(null)} />
+                <Photo key={id}
+                    key={id}
+                        id={id}
+                        name={name}
+                        image={image}
+                        description={description}
+                        showDescription={this.state.showDescription} />
+            </div>
+        );
     }
 }
 

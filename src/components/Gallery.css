@@ -12,3 +12,63 @@
 .gallery .column .photo {
     padding: 1.5vw;
 }
+
+.full-screen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.full-screen .background-filter {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+    opacity: 0.97;
+    z-index: 2;
+    animation-name: fullscreen-fade-in;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+}
+
+.full-screen .photo {
+    animation-name: photo-expand;
+    animation-duration: 2s;
+    animation-timing-function: ease-in;
+    z-index: 3;
+    background-color: var(--color);
+    display: flex;
+}
+
+.full-screen .photo img {
+    max-width: 80vw;
+    max-height: 80vh;
+}
+
+@keyframes fullscreen-fade-in {
+    0% {
+        opacity: 0;
+        z-index: -1;
+    }
+}
+
+@keyframes photo-expand {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    50% {
+        opacity: 0.1;
+        transform: scale(1);
+    }
+}
