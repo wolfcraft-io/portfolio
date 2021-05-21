@@ -65,11 +65,10 @@ class Gallery extends Component {
 
     selectPhoto(id) {
         const selectedPhoto = this.state.photos.find(p => p.id === id);
-        if (!selectedPhoto)
+        if (!selectedPhoto || this.state.columns.length <= 1)
             this.setState({ selectedPhoto: null });
-        else {
+        else
             this.loadFullsizePhoto(selectedPhoto, window.visualViewport.height);
-        }
     }
 
     loadFullsizePhoto(photo, screenHeight) {
@@ -135,8 +134,15 @@ class Gallery extends Component {
     }
 
     renderFullscreen() {
-        if (this.state.columns.length <= 1 || !this.state.selectedPhoto)
+        if (!this.state.selectedPhoto)
             return;
+
+        if (this.state.columns.length <= 1) {
+            if (this.state.selectedPhoto)
+                this.selectPhoto(null);
+
+            return;
+        }
 
         const { id, name, image, description } = this.state.selectedPhoto;
         return (
