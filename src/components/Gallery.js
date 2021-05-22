@@ -155,12 +155,11 @@ class Gallery extends Component {
                     <CloseIcon />
                 </div>
                 <Photo key={id}
-                    key={id}
-                        id={id}
-                        name={name}
-                        image={image}
-                        description={description}
-                        showDescription={this.state.showDescription} />
+                    id={id}
+                    name={name}
+                    image={image}
+                    description={description}
+                    showDescription={this.state.showDescription} />
             </div>
         );
     }
