@@ -43,12 +43,13 @@
     justify-content: flex-end;
 }
 
-.full-screen .background-filter .close.icon {
-    width: 2vw;
+.close.icon {
+    width: 2vmin;
+    min-width: 2rem;
     margin: 1vw;
 }
 
-.full-screen .background-filter .close.icon:hover {
+.close.icon:hover {
     transform: scale(1.1);
     transition: transform 0.5s;
 }
