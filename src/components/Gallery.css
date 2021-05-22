@@ -38,6 +38,19 @@
     animation-name: fullscreen-fade-in;
     animation-duration: 1s;
     animation-timing-function: ease-out;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.full-screen .background-filter .close.icon {
+    width: 2vw;
+    margin: 1vw;
+}
+
+.full-screen .background-filter .close.icon:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s;
 }
 
 .full-screen .photo {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Photo from './Photo';
 import './Gallery.css';
+import CloseIcon from '../asset-components/CloseIcon';
 
 class Gallery extends Component {
     constructor(props) {
@@ -101,6 +102,7 @@ class Gallery extends Component {
     }
 
     componentDidMount() {
+        window.addEventListener('keydown', e => { if (e.key === 'Escape') this.selectPhoto(null); });
         window.addEventListener('resize', () => this.setState({ columns: this.createColumnIds() }));
         setTimeout(() => this.state.columns.forEach(i => this.addPhotoToColumn(i)), 20);
     }
@@ -149,7 +151,9 @@ class Gallery extends Component {
             <div className="full-screen">
                 <div
                     className="background-filter"
-                    onClick={() => this.selectPhoto(null)} />
+                    onClick={() => this.selectPhoto(null)}>
+                    <CloseIcon />
+                </div>
                 <Photo key={id}
                     key={id}
                         id={id}
