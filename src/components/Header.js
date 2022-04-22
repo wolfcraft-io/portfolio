@@ -4,10 +4,12 @@ import Logo from '../asset-components/WolfcraftLogoLight';
 import TwitterLogo from '../asset-components/TwitterLogo';
 import InstagramLogo from '../asset-components/InstagramLogo';
 import SocialMediaLink from './SocialMediaLink';
+import MailIcon from '../asset-components/MailIcon';
 
+const contact = { email: process.env.REACT_APP_CONTACT_EMAIL };
 const socialMedia = {
     twitter: process.env.REACT_APP_SM_TWITTER,
-    instagram: process.env.REACT_APP_SM_INSTAGRAM
+    instagram: process.env.REACT_APP_SM_INSTAGRAM,
 };
 
 
@@ -22,8 +24,21 @@ class Header extends Component {
                     </a>
                     {this.renderTwitterLink()}
                     {this.renderInstagramLink()}
+                    {this.renderContact()}
                 </div>
             </div>
+        );
+    }
+
+    renderContact() {
+        if (!contact.email)
+            return null;
+        
+        return (
+            <a className="social-media-link"
+                href={`mailto:${contact.email}`}>
+                <MailIcon />
+            </a>
         );
     }
 
