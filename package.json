@@ -8,8 +8,8 @@
     "@testing-library/user-event": "^12.8.3",
     "aws-sdk": "^2.888.0",
     "random": "^3.0.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.1"
   },
