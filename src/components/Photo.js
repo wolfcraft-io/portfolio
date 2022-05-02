@@ -30,6 +30,8 @@ class Photo extends Component {
             id = 'no-id',
             image,
             name,
+            hash,
+            labels,
             description,
             showDescription,
         } = this.props;
@@ -41,7 +43,7 @@ class Photo extends Component {
             console.error(`Missing description for '${name || image}'.`)
 
         return (
-            <div className={`photo ${this.state.show ? 'fade-in' : 'pre-load'}`}
+            <div id={hash} tags={labels} className={`photo ${this.state.show ? 'fade-in' : 'pre-load'}`}
                 ref={e => this.domElement = e}
                 onClick={() => this.props.onClick?.()}>
                 <img

@@ -2,6 +2,7 @@ import { Credentials } from 'aws-sdk';
 import S3 from 'aws-sdk/clients/s3';
 import random from 'random';
 import s3Base64PhotoProvider from './s3Base64PhotoProvider';
+import hash from 'object-hash';
 
 const POPULATING_LIST = 'POPULATING_LIST';
 
@@ -73,6 +74,7 @@ class S3ContentProvider {
 
             const photo = { 
                 name: key,
+                hash: hash(key, {algorithm: 'md5'}),
                 image: base64Image,
                 loadFullsize: async () => await base64PhotoProvider.downloadPhoto(bucket, key.replace(keyExtension, '.H_1296.jpg')),
                 loadFullsize4K: async () => await base64PhotoProvider.downloadPhoto(bucket, key.replace(keyExtension, '.H_1800.jpg'))
@@ -84,7 +86,8 @@ class S3ContentProvider {
                     .getObject({ Bucket: bucket, Key: key.replace(keyExtension, '.meta.json')})
                     .promise();
                 const { Body } = await metaDataResponse;
-                const { description } = JSON.parse(Body.toString());
+                const { description, labels = [] } = JSON.parse(Body.toString());
+                photo.labels = labels;
                 if (description)
                     photo.description = description
             }

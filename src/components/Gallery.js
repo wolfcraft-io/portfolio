@@ -121,10 +121,12 @@ class Gallery extends Component {
             <div className="column" key={columnIndex}>
                 {
                     this.getPhotosForColum(columnIndex)
-                        .map(({ id, name, image, description }) => (
+                        .map(({ id, name, hash, labels, image, description }) => (
                             <Photo key={id}
                                 id={id}
                                 name={name}
+                                hash={hash}
+                                labels={labels}
                                 image={image}
                                 description={description}
                                 loadNextPhoto={() => setTimeout(() => this.addPhotoToColumn(columnIndex), 10)}
