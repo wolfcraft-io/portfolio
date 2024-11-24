@@ -32,7 +32,3 @@ Build gets automatically executed for AWS Amplify app when pushed to `main`. Loc
 > Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.\
 [More info on deployment.](https://facebook.github.io/create-react-app/docs/deployment)
-
-## Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
