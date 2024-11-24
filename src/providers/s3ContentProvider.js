@@ -17,36 +17,40 @@ const keyExtension = /\.W_900\.jpe?g$/gi;
 
 class S3ContentProvider {
 
+    unloadedPhotosList = null;
+    isFetchingPhoto = false;
+
     async getClient() {
         await credentials.getPromise();
         return new S3({ credentials, region });
     }
    
     async populatePhotoList() {
-        if (this.photoList === POPULATING_LIST)
+        if (this.unloadedPhotosList === POPULATING_LIST)
             return await this.listIsPopulated();
 
-        this.photoList = POPULATING_LIST;
+        this.unloadedPhotosList = POPULATING_LIST;
         const determinePosition = random.normal();
         const client = await this.getClient();
         await client
             .listObjectsV2({ Bucket: bucket })
             .promise()
             .then(({ Contents }) => {
-                this.photoList = Contents
+                this.unloadedPhotosList = Contents
                     ?.map(object => object.Key)
                     .filter(key =>`${key}`.match(keyExtension))
                     .sort(() => determinePosition())
                     || [];
             })
             .catch(error => { 
-                console.error(error);
-                this.photoList = []; 
+                if (this.isDevelopmentMode)
+                    console.error('failed to load photo list', error);
+                this.unloadedPhotosList = []; 
             });
     }
 
     async listIsPopulated() {
-        if (this.photoList && Array.isArray(this.photoList))
+        if (this.unloadedPhotosList && Array.isArray(this.unloadedPhotosList))
             return;
 
         return await new Promise(resolve => {
@@ -58,12 +62,17 @@ class S3ContentProvider {
     }
 
     getNextPhoto = async () => {
-        if (!this.photoList || !Array.isArray(this.photoList))
+        if (!this.unloadedPhotosList || !Array.isArray(this.unloadedPhotosList))
             await this.populatePhotoList();
 
-        const key = this.photoList.shift();
+        await this.canFetchNext();
+        this.isFetchingPhoto = true;
+        const key = this.unloadedPhotosList.shift();
         if (!key)
+        {
+            this.isFetchingPhoto = false;
             return null;
+        }
 
         try {
             const client = await this.getClient();
@@ -91,14 +100,31 @@ class S3ContentProvider {
                 if (description)
                     photo.description = description
             }
-            catch {}
+            catch (error){
+                if(this.isDevelopmentMode)
+                    console.error('failed to load metadata', key, error);
+            }
             
+            this.isFetchingPhoto = false;
             return photo;
 
-        } catch {
+        } catch (error) {
+            if(this.isDevelopmentMode)
+                console.error('failed to load', key, error);
+
             return await this.getNextPhoto();
         }
     }
+
+    canFetchNext = async () => {
+        if(!this.isFetchingPhoto)
+            return;
+        
+        await new Promise(r => setTimeout(r, 5));
+        return await this.canFetchNext();
+    }
+
+    isDevelopmentMode = () => process.env.NODE_ENV === 'development';
 }
 
 export default S3ContentProvider;

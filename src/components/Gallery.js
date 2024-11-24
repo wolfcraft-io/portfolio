@@ -20,8 +20,9 @@ class Gallery extends Component {
 
     createColumnIds() {
         const numberOfColums = Math.max(Math.ceil(window.innerWidth / 900, 1));
-        const { limit = numberOfColums } = this.props;
-        return Array.from({length: Math.min(numberOfColums, limit) }).map((_,i)=> i);
+        return Array
+            .from({ length: numberOfColums })
+            .map((_,i)=> i);
     }
 
     contentLoaded() {
@@ -33,12 +34,8 @@ class Gallery extends Component {
         if (this.state.galleryState === 'loaded')
             return;
 
-        const {
-            limit,
-            contentProvider,
-         } = this.props;
-
-        if (!contentProvider || (limit &&  this.state.photos.length >= limit))
+        const { contentProvider } = this.props;
+        if (!contentProvider)
             return this.contentLoaded();
 
         contentProvider
@@ -48,7 +45,7 @@ class Gallery extends Component {
                     return this.contentLoaded();
 
                 const existingIds = this.getPhotosForColum(columnIndex).map(photo => photo.id);
-                const id = ( existingIds.length === 0)
+                const id = (existingIds.length === 0)
                     ? columnIndex
                     : Math.max(...existingIds) + this.state.columns.length;
 
