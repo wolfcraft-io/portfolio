@@ -11,7 +11,6 @@ Local configuration:
 - Add environment variables to .env in root folder
     - HOST=dev-portfolio.wolfcraft.io
     - REACT_APP_CONTACT_EMAIL contact email for website
-    - REACT_APP_SM_TWITTER twitter account (optional)
     - REACT_APP_SM_INSTAGRAM instagram account (optional)
     - REACT_APP_S3_BUCKET S3 bucket name for photos
     - REACT_APP_S3_REGION S3 bucket region
